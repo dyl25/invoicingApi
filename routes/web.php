@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use Illuminate\Support\Str;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -16,3 +18,16 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/key', function (){
+    return Str::random(32);
+});
+
+//get all invoices
+$router->get('/invoices', 'InvoiceController@index');
+
+//create new invoice with tasks
+$router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@store');
+
+//update a precise invoice
+$router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@update');
