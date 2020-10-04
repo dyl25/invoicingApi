@@ -19,15 +19,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/key', function (){
-    return Str::random(32);
+$router->group(['prefix' => 'api'], function () use ($router) {
+
+    //get all cients
+    $router->get('/clients', 'ClientController@index');
+
+    //get precise client
+    $router->get('/clients/{id}', 'ClientController@show');
+
+    //get all invoices
+    $router->get('/invoices', 'InvoiceController@index');
+
+    //create new invoice with tasks
+    $router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@store');
+
+    //update a precise invoice
+    $router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@update');
 });
-
-//get all invoices
-$router->get('/invoices', 'InvoiceController@index');
-
-//create new invoice with tasks
-$router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@store');
-
-//update a precise invoice
-$router->patch('/invoices/{invoiceId}/tasks', 'InvoiceController@update');

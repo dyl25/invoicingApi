@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 
-class InvoiceController extends Controller
+class ClientController extends Controller
 {
     public function index()
     { 
-        return DB::table('invoices')->get();
+        return Client::all();
+    }
+
+    public function show(int $id) {
+        return Client::find($id);
     }
 
     public function store() {
